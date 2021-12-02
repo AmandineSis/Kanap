@@ -94,14 +94,26 @@ fetch(`http://localhost:3000/api/products/${id}`)
                 
             } 
             } 
-
+        /**
+         * 
+         * @param {number} quantityCart valeur de la quantité dans le panier
+         * @param {number} quantitySelection valeur de la quantité sélectionnée
+         * @returns {number} quantityCArt résultat de l'opération
+         */    
         function changeQuantityValue(quantityCart, quantitySelection) {
             quantityCart = addValues(quantityCart,quantitySelection);
             return quantityCart;
             }   
+
+        /**
+         * Additionne 2 valeurs
+         * @param {number} value1 
+         * @param {number} value2 
+         * @returns {number} value 3 résultat de l'opération
+         */    
         function AddValues(value1, value2, value3) {
             value3 = value1 += value2;
-            return value1;
+            return value3;
             }
         /**
          * Modifie les valeurs "quantity" et "totalPrice" de l'objet existant dans "cart".
@@ -185,11 +197,10 @@ fetch(`http://localhost:3000/api/products/${id}`)
                     objToChange.totalPrice = objToChange.totalPrice += selection.totalPrice;
 
                     cart.splice(objItems, 1, objToChange)
-                    //localStorage.setItem("selection", JSON.stringify(cart));
+                   
                     /*************************************************************************************** */
                     }else{   
                         cart.push(selection);
-                       // addSelectionToCart("selection", cart);
                     }    
             }else{
                 cart = [];
