@@ -51,9 +51,9 @@ class Selection{
   constructor (id, productName, altTxt, imageUrl, totalPrice, color, quantity){
     Object.assign(this,  {id, productName, altTxt, imageUrl, totalPrice, color, quantity});
   }
-  displayProduct(id) {
+  displayProduct(elId) {
     document
-        .getElementById(id)
+        .getElementById(elId)
         .innerHTML += ` <article class="cart__item" data-id="${this.id}">
                           <div class="cart__item__img">
                             <img src="${this.imageUrl}" alt="${this.altTxt}">
@@ -61,7 +61,7 @@ class Selection{
                           <div class="cart__item__content">
                             <div class="cart__item__content__titlePrice">
                               <h2>${this.productName}</h2>
-                              <p>${this.totalProductPrice}€</p>
+                              <p>${this.totalPrice}€</p>
                               <p>${this.color}</p>
                             </div>
                             <div class="cart__item__content__settings">
@@ -77,3 +77,11 @@ class Selection{
                         </article>`;   
   }
 }  
+
+//Afichage du prix et de la quantité totale dans cart.html
+
+function displayTotal(id, el){
+  document
+    .getElementById(id)
+    .innerHTML += `${el}`;
+}
