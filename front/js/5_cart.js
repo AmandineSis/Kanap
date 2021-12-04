@@ -172,7 +172,7 @@ function deleteProduct() {
 let qtyInput = document.querySelectorAll(".itemQuantity");
 
 qtyInput.forEach(item =>{
-    item.addEventListener("change", getNewQty)});
+    item.addEventListener("change", modifyCart)});
 
 //Ecouter le clic du bouton "ajouter au panier"
 let deleteBtn = document.querySelectorAll(".deleteItem");

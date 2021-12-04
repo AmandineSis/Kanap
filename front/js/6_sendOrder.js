@@ -23,93 +23,74 @@ function addressValid(value) {
 function emailValid(value) {
     return regexEmail.test(value)
   }
+
+/******************************************************************************** */
+function disableSubmit(validity) {
+    if (validity) {
+      document
+        .getElementById("order")
+        .removeAttribute("disabled");
+
+    } else {
+      document
+        .getElementById("order")
+        .setAttribute("disabled", true);
+        }
+  }
 //validation du prénom/********************************************************** */
-form.firstName.addEventListener('input', function(e){
-    let value = e.target.value;
-    if (value != "" && lettersOnlyValid(value) == true) {
-        validity = true;
-        document.getElementById("firstNameErrorMsg").innerHTML = "";
-        console.log("ok")
-    } else {
-        validity = false;
-        document.getElementById("firstNameErrorMsg").innerHTML = "Prénom invalide";
-    }
-    disableSubmit(validity);
-  });
-//validation du nom/*********************************************************** */
-form.lastName.addEventListener('input', function(e){
-    let value = e.target.value;
-    if (value != "" && lettersOnlyValid(value) == true) {
-        validity = true;
-        document.getElementById("lastNameErrorMsg").innerHTML = "";
-        console.log("ok")
-    } else {
-        validity = false;
-        document.getElementById("lastNameErrorMsg").innerHTML = "Nom invalide";
-    }
-    disableSubmit(validity);
-  });
-//validation de l'adresse/***************************************************** */
-form.address.addEventListener('input', function(e){
-    let value = e.target.value;
-    if (value != "" && addressValid(value) == true) {
-        validity = true;
-        document.getElementById("addressErrorMsg").innerHTML = "";
-        console.log("ok")
-    } else {
-        validity = false;
-        document.getElementById("addressErrorMsg").innerHTML = "Adresse invalide";
-    }
-    disableSubmit(validity);
-  });
-//validation de la ville/*************************************************** */
-form.city.addEventListener('input', function(e){
-    let value = e.target.value;
-    if (value != "" && lettersOnlyValid(value) == true) {
-        validity = true;
-        document.getElementById("cityErrorMsg").innerHTML = "";
-        console.log("ok")
-    } else {
-        validity = false;
-        document.getElementById("cityErrorMsg").innerHTML = "Ville  invalide";
-    }
-    disableSubmit(validity);
-  });
-//validation de l'email/*************************************************** */
-form.email.addEventListener('input', function(e){
-    let value = e.target.value;
-    if (value != "" && emailValid(value) == true) {
-        validity = true;
-        document.getElementById("emailErrorMsg").innerHTML = "";
-        console.log("ok")
-    } else {
-        validity = false;
-        document.getElementById("emailErrorMsg").innerHTML = "Email invalide";
-    }
-    disableSubmit(validity);
-  });
 
+/**
+ * 
+ * @param {*} e objectEvent
+ * @param {*} fct fonction de validation des données saisie
+ * @param {*} elementId élèment du DOM affichant l'erreur de saisie
+ */
+function validFormInput(e, fct, elementId) {
+  let value = e.target.value;
+    if (value != "" && fct(value) == true) {
+        validity = true;
+        document.getElementById(elementId).innerHTML = "";
+        
+        console.log("ok")
+    } else {
+        validity = false;
+        document.getElementById(elementId).innerHTML = "Saisie invalide";
+    }
+    disableSubmit(validity);
+}
 
-function sendOrder(event) {
+/**
+ * Récupère la valeur associée à la clé définie en paramètre sur localStorage s'il existe.
+ * @param {string} key clé recherchée sur le localStorage
+ * @param {string} arrayName variable où sera stockée le résultat retournée
+ * @returns {*} arrayName retourne tableau d'objet s'il existe 
+ */
+ function getCart() {
+  cart = JSON.parse(localStorage.getItem("selection"));
+  return cart;
+  }
+
+function addProductIdToOrder(order){
+    for (items in cart) {
+      let productId = cart[items].id;
+      console.log(typeof productId);
+      order.push(productId);
+    }  
+  }
+function sendOrder(e) {
  /************************************************************* */
-    event.preventDefault();
-    let contact= {
-      firstName: form.firstName.value,
-      lastName: document.getElementById("lastName").value,
-      address: document.getElementById("address").value,
-      city: document.getElementById("city").value,
-      email: document.getElementById("email").value,
-    };
+    e.preventDefault();
+    let contact= new Contact(form.firstName.value,
+      document.getElementById("lastName").value,
+      document.getElementById("address").value,
+      document.getElementById("city").value,   
+      document.getElementById("email").value);
+      
 /************************************************************* */
     let products = [];
-    cartArray = JSON.parse(localStorage.getItem("selection"));
-
+    getCart();
+    addProductIdToOrder(products);
       
-    for (cartItem in cartArray) {
-        let productId = cartArray[cartItem].id;
-        console.log(typeof productId);
-        products.push(productId);
-      }
 /************************************************************ */    
     /**
     *
@@ -148,14 +129,25 @@ function sendOrder(event) {
 /*                Event Listener                     */
 /*****************************************************/
 
-form.firstName.addEventListener('input', validForm(e,id));
-form.lastName.addEventListener('input', validForm(e,id));
-form.address.addEventListener('input', validForm(e,id));
-form.city.addEventListener('input', validForm(e,id));
-form.email.addEventListener('input', validForm(e,id));
-
+form.firstName.addEventListener('input', function(e){
+  validFormInput(e, lettersOnlyValid, "firstNameErrorMsg")
+});
+form.lastName.addEventListener('input', function(e){
+  validFormInput(e, lettersOnlyValid, "lastNameErrorMsg")
+});
+form.address.addEventListener('input', function(e){
+  validFormInput(e,addressValid, "addressErrorMsg")
+});
+form.city.addEventListener('input', function(e){
+  validFormInput(e, lettersOnlyValid, "cityErrorMsg")
+});
+form.email.addEventListener('input', function(e){
+  validFormInput(e,emailValid, "emailErrorMsg")
+});
 
 //on écoute le bouton "commander"
 let orderBtn = document.getElementById("order");
 
-orderBtn.addEventListener("click", sendOrder);
+orderBtn.addEventListener("click", function(e){
+  sendOrder(e);
+});

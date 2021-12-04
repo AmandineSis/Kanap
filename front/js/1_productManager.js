@@ -85,3 +85,12 @@ function displayTotal(id, el){
     .getElementById(id)
     .innerHTML += `${el}`;
 }
+
+/**
+ * Gestion du produits sélectionné en objet, gère l'affichage sur cart.html
+ */  
+ class Contact{
+  constructor (firstName, lastName, address, city, email){
+    Object.assign(this,  {firstName, lastName, address, city, email});
+  }
+} 
