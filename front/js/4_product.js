@@ -66,8 +66,18 @@ fetch(`http://localhost:3000/api/products/${id}`)
 
         /****************************************************** */    
         /*****Add function if color is undefined*************** */    
-        /****************************************************** */    
+        /****************************************************** */   
         
+        function isColorUndefined(){
+            if (color == undefined) {
+
+                //annule envoi au panier 
+                //affiche message alerte
+            }
+        }
+        /******************************************************** */
+        /******************************************************** */
+
         /**
          * Récupère la valeur associée à la clé définie en paramètre sur localStorage s'il existe.
          * @param {string} key clé recherchée sur le localStorage
@@ -81,22 +91,31 @@ fetch(`http://localhost:3000/api/products/${id}`)
         
         /**
          * Vérifie si l'objet "selection" existe déjà dans "cart" en comparant l'id du produit et la couleur
-         * @param {string} idCart id du produit se trouvant dans "cart"
-         * @param {string} idSelection id du produit sélectionné
-         * @param {string} colorCart couleur du produit se trouvant dans "cart"
-         * @param {string} colorSelection couleur du produit sélectionnée
-         * @returns {number} item index de l'objet à modifier s'il existe déjà 
+         * @param {string} obj objet "selection"
+         * @returns {boolean} 
          */
-        function isSelectionInCart(idCart, idSelection, colorCart, colorSelection, items){
-            if(idCart != idSelection || colorCart != colorSelection ){
-                productExists = false;                
-            }else{
-                productExists = true;
-            
-                obtToChange = cart[items];
-
-            } 
-            } 
+        function isSelectionInCart(obj){
+            for (items in cart) {
+                if(cart[items].id != obj.id || cart[items].color != obj.color ){
+                    items ++;               
+                }else{
+                    objItems = items; //si produit déjà existant = les valeurs de productExists et items sont stockées dans obj
+                    return true;
+                    
+                }
+            }
+        }
+        function getObjIndex(obj){
+            for (items in cart) {
+                if(cart[items].id != obj.id || cart[items].color != obj.color ){
+                    return undefined;               
+                }else{
+                     //si produit déjà existant = les valeurs de productExists et items sont stockées dans obj
+                    return  items;
+                    
+                }
+            }
+        }
         
         /**
          * 
@@ -158,14 +177,13 @@ fetch(`http://localhost:3000/api/products/${id}`)
                 window.location.href = "index.html";
             }
             }
-        
+    
         /**
          * ajout du produit sélectionné au panier
          */
         function addToCart() {
             //Calcul du prix total de la sélection
             let totalPrice = calculateTotalPrice(quantity, product.price);
-        
         
             //Création de l'objet "selection" à ajouter au localStorage
             let selection = new Selection(product._id, 
@@ -177,10 +195,8 @@ fetch(`http://localhost:3000/api/products/${id}`)
                                           color,  
                                           quantity);
             
-            
             //on vérifie si le tableau cart existe dans le local storage 
             let cart = getCart();
-            
             
             if(cart) {
                 //On vérifie si le produit sélectionné existe dans le panier
@@ -188,14 +204,8 @@ fetch(`http://localhost:3000/api/products/${id}`)
                 let items;
             
                 /*************************CREER FONCTION **************************************************** */
-                for (items in cart) {
-                    if(cart[items].id != selection.id || cart[items].color != selection.color ){
-                        productExists = false;                
-                    }else{
-                        productExists = true;
-                        objItems = items; //si produit déjà existant = les valeurs de productExists et items sont stockées dans obj
-                    }
-                    }
+                productExists = isSelectionInCart(selection);
+                items = getObjIndex(selection);
                 /********************************************************************************************* */  
                 
                 
