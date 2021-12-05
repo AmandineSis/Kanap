@@ -69,8 +69,8 @@ fetch(`http://localhost:3000/api/products/${id}`)
         /****************************************************** */   
         
         function isColorUndefined(){
-            if (color == undefined) {
-
+            if (color == " ") {
+                return true;
                 //annule envoi au panier 
                 //affiche message alerte
             }
@@ -92,52 +92,32 @@ fetch(`http://localhost:3000/api/products/${id}`)
         /**
          * Vérifie si l'objet "selection" existe déjà dans "cart" en comparant l'id du produit et la couleur
          * @param {string} obj objet "selection"
-         * @returns {boolean} 
+         * @returns {boolean} retourne "true" si objet existe dans le panier
          */
         function isSelectionInCart(obj){
             for (items in cart) {
                 if(cart[items].id != obj.id || cart[items].color != obj.color ){
                     items ++;               
                 }else{
-                    objItems = items; //si produit déjà existant = les valeurs de productExists et items sont stockées dans obj
-                    return true;
-                    
+                    return true;   
                 }
             }
         }
-        function getObjIndex(obj){
+        
+        /**
+         * Compare les produits du panier avec le produit sélectionné et retourne l'index de l'objet déjà existant s'il y en a un
+         * @param {*} obj objet selection
+         * @returns {number} items index de l'objet existant
+         */
+        function getObjIndex(obj){  //inverser conditions ???
             for (items in cart) {
                 if(cart[items].id != obj.id || cart[items].color != obj.color ){
-                    return undefined;               
+                    items ++;               
                 }else{
-                     //si produit déjà existant = les valeurs de productExists et items sont stockées dans obj
-                    return  items;
-                    
+                    return  items;  
                 }
             }
-        }
-        
-        /**
-         * 
-         * @param {number} quantityCart valeur de la quantité dans le panier
-         * @param {number} quantitySelection valeur de la quantité sélectionnée
-         * @returns {number} quantityCArt résultat de l'opération
-         */    
-        function changeQuantityValue(quantityCart, quantitySelection) {
-            quantityCart = addValues(quantityCart,quantitySelection);
-            return quantityCart;
-            }   
-        
-        /**
-         * Additionne 2 valeurs
-         * @param {number} value1 
-         * @param {number} value2 
-         * @returns {number} value 3 résultat de l'opération
-         */    
-        function AddValues(value1, value2, value3) {
-            value3 = value1 += value2;
-            return value3;
-            }
+        } 
 
         /**
          * Modifie les valeurs "quantity" et "totalPrice" de l'objet existant dans "cart".
@@ -146,13 +126,18 @@ fetch(`http://localhost:3000/api/products/${id}`)
          * @param {number} totalPriceCart  
          * @param {number} totalPriceSelection 
          */
-        function modifyExistingProduct(quantityCart, quantitySelection,totalPriceCart, totalPriceSelection, items, objToChangeQty, objToChangePrice, objToChange){
+        /*function modifyExistingProduct(quantityCart, quantitySelection,totalPriceCart, totalPriceSelection, items, objToChangeQty, objToChangePrice, objToChange){
         
                 addValues(quantityCart,quantitySelection, objToChangeQty);
                 addValues(totalPriceCart,totalPriceSelection, objToChangePrice );
                 cart.splice(items, 1,objToChange);
-            }
+            }*/
         
+        /**
+         * Modifie l'objet déjà présent dans le panier avec l'objet sélectionné
+         * @param {*} objItems index de l'objet à modifier
+         * @param {*} objToChange 
+         */    
         function modifyObjInCart(objItems, objToChange){
             cart.splice(objItems, 1, objToChange)
         }    
@@ -182,6 +167,13 @@ fetch(`http://localhost:3000/api/products/${id}`)
          * ajout du produit sélectionné au panier
          */
         function addToCart() {
+
+            if (color == ""){
+                alert("Veuillez sélectionné une couleur");
+                return;
+            }
+            
+            quantity = parseFloat(quantity);
             //Calcul du prix total de la sélection
             let totalPrice = calculateTotalPrice(quantity, product.price);
         
@@ -194,32 +186,18 @@ fetch(`http://localhost:3000/api/products/${id}`)
                                           totalPrice, 
                                           color,  
                                           quantity);
-            
+           
             //on vérifie si le tableau cart existe dans le local storage 
             let cart = getCart();
             
             if(cart) {
-                //On vérifie si le produit sélectionné existe dans le panier
-                let productExists;
-                let items;
-            
-                /*************************CREER FONCTION **************************************************** */
-                productExists = isSelectionInCart(selection);
-                items = getObjIndex(selection);
-                /********************************************************************************************* */  
-                
-                
+                let productExists = isSelectionInCart(selection);
+                let items = getObjIndex(selection);
+               
                 if (productExists) { //on change la valeur de qté et du prix total
-
-                    /**********************CREER FONCTION MODIFICATION CART ******************************** */
-                    let objToChange = cart[objItems];
-                    let quantityCart = parseFloat(objToChange.quantity);
-                    let quantitySelection = parseFloat(selection.quantity);
-                    objToChange.quantity = quantityCart += quantitySelection;
-                    objToChange.totalPrice = objToChange.totalPrice += selection.totalPrice;
-                    modifyObjInCart(objItems, objToChange);
-                
-                    /*************************************************************************************** */
+                    cart[items].quantity += selection.quantity;
+                    cart[items].totalPrice += selection.totalPrice;
+                    modifyObjInCart(items, cart[items]);
                     }else{   
                         cart.push(selection);
                     }    
@@ -229,16 +207,15 @@ fetch(`http://localhost:3000/api/products/${id}`)
             }     
             addSelectionToLocalStorage("selection", cart);
             confirmationPopup(quantity);      
-}
+        }
 
-        
         /****************************************************** */
         /*                   Event Listener                     */
         /********************************************************/
 
         // Ecouter le changement de la sélection de couleur
-        let color = undefined;
         let colorSelection = document.getElementById('colors');
+        let color = colorSelection.value;
 
         colorSelection.addEventListener('change', selectColor); 
         

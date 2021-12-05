@@ -78,13 +78,12 @@ function changeQty(){ //diviser la fonction en 2 - quantity et prix
 
       if (objToChange.id == selection.id && objToChange.color == selection.color && objToChange.quantity != selection.quantity){
           objToChange.quantity = quantity;
-          //console.log(typeof cart[items].price);
-          let newQty = /*parseFloat(*/objToChange.quantity;//);
-          let newPrice = cart[items].price;
-          let newTotalPrice = (newQty * newPrice)/*.toString(10)*/;
-          cartChange.totalProductPrice = newTotalPrice;
+         // let newQty = /*parseFloat(*/objToChange.quantity;//);
+          //let newPrice = cart[items].price;
+          //let newTotalPrice = (objToChange.quantity * cart[items].price)/*.toString(10)*/;
+          objToChange.totalProductPrice = (objToChange.quantity * cart[items].price);
           console.log(newTotalPrice);
-          modifyObjInCart(objItems, objToChange);
+          modifyObjInCart(items, objToChange);
           addSelectionToLocalStorage("selection", cart);
           location.reload();
           }
@@ -122,7 +121,7 @@ for (items in cart){
  * @param {*} e 
  * @param {*} items 
  */
-function selectProductToChange(e, items){
+function selectProductToChange(e){
     el = items.closest(e);
     id = el.dataset.id;
 }
@@ -145,9 +144,9 @@ function RemoveFromStorage() {
 /**
  * modifie la quantité du produit sélectionné dans le panier
  */
-function modifyCart(){
+function modifyCartQuantity(){
     //on récupère la nouvelle valeur de la quantité  
-    getQuantity();
+    let quantity = getQuantity();
     selectProductToChange('.cart__item');
     //console.log(quantity);
     //console.log(id);
@@ -171,11 +170,9 @@ function deleteProduct() {
 ////Ecouter le changement de quantité
 let qtyInput = document.querySelectorAll(".itemQuantity");
 
-qtyInput.forEach(item =>{
-    item.addEventListener("change", modifyCart)});
+qtyInput.forEach(item => {item.addEventListener("change", modifyCartQuantity)});
 
 //Ecouter le clic du bouton "ajouter au panier"
 let deleteBtn = document.querySelectorAll(".deleteItem");
 
-deleteBtn.forEach(item =>{
-  item.addEventListener("click", deleteProduct)});
+deleteBtn.forEach(item => {item.addEventListener("click", deleteProduct)});
