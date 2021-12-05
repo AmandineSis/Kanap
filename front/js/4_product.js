@@ -195,6 +195,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
                 let items = getObjIndex(selection);
                
                 if (productExists) { //on change la valeur de qté et du prix total
+
                     cart[items].quantity += selection.quantity;
                     cart[items].totalPrice += selection.totalPrice;
                     modifyObjInCart(items, cart[items]);

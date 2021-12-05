@@ -70,6 +70,10 @@ function validFormInput(e, fct, elementId) {
   return cart;
   }
 
+  /**
+   * Ajoute l'ID des produits du panier dans le tableau "order"
+   * @param {*} order tableau de stockage des données
+   */
 function addProductIdToOrder(order){
     for (items in cart) {
       let productId = cart[items].id;
@@ -77,9 +81,24 @@ function addProductIdToOrder(order){
       order.push(productId);
     }  
   }
-function sendOrder(e) {
+
+/**
+ * Envoie l'ID des produits du panier et l'objet "contact" à l'API 
+ */  
+function sendOrder() {
+    //e.preventDefault();
+   /**
+    * Expects request to contain:
+    * contact: {
+    *   firstName: string,
+    *   lastName: string,
+    *   address: string,
+    *   city: string,
+    *   email: string
+    * }
+    * products: [string] <-- array of product _id
+    */ 
  /************************************************************* */
-    e.preventDefault();
     let contact= new Contact(form.firstName.value,
       document.getElementById("lastName").value,
       document.getElementById("address").value,
@@ -92,19 +111,6 @@ function sendOrder(e) {
     addProductIdToOrder(products);
       
 /************************************************************ */    
-    /**
-    *
-    * Expects request to contain:
-    * contact: {
-    *   firstName: string,
-    *   lastName: string,
-    *   address: string,
-    *   city: string,
-    *   email: string
-    * }
-    * products: [string] <-- array of product _id
-    */    
-      
     fetch("http://localhost:3000/api/products/order/", {
             method: "POST",
             body: JSON.stringify({contact, products}),
