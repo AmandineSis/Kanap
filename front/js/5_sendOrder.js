@@ -68,10 +68,10 @@ function validFormInput(e, fct, elementId) {
   return cart;
   }
 
-  /**
-   * Ajoute l'ID des produits du panier dans le tableau "order"
-   * @param {*} order tableau de stockage des données
-   */
+/**
+ * Ajoute l'ID des produits du panier dans le tableau "order"
+ * @param {*} order tableau de stockage des données
+ */
 function addProductIdToOrder(order){
     for (items in cart) {
       let productId = cart[items].id;
@@ -129,24 +129,28 @@ function sendOrder(e) {
 /*************************************************** */
 /*                Event Listener                     */
 /*****************************************************/
-
+//écoute la saisie du prénom et affiche message d'erreur si saisie incorrecte
 form.firstName.addEventListener('input', function(e){
   validFormInput(e, lettersOnlyValid, "firstNameErrorMsg")
 });
+//écoute la saisie du nom et affiche message d'erreur si saisie incorrecte
 form.lastName.addEventListener('input', function(e){
   validFormInput(e, lettersOnlyValid, "lastNameErrorMsg")
 });
+//écoute la saisie de l'adresse et affiche message d'erreur si saisie incorrecte
 form.address.addEventListener('input', function(e){
   validFormInput(e,addressValid, "addressErrorMsg")
 });
+//écoute la saisie de la ville et affiche message d'erreur si saisie incorrecte
 form.city.addEventListener('input', function(e){
   validFormInput(e, lettersOnlyValid, "cityErrorMsg")
 });
+//écoute la saisie de l'email et affiche message d'erreur si saisie incorrecte
 form.email.addEventListener('input', function(e){
   validFormInput(e,emailValid, "emailErrorMsg")
 });
 
-//on écoute le bouton "commander"
+//écoute le bouton "commander"
 let orderBtn = document.getElementById("order");
 
 orderBtn.addEventListener("click", function(e){
