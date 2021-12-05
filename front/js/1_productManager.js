@@ -48,8 +48,8 @@ class Products{
  * Gestion du produits sélectionné en objet, gère l'affichage sur cart.html
  */  
 class Selection{
-  constructor (id, productName, altTxt, imageUrl, totalPrice, color, quantity){
-    Object.assign(this,  {id, productName, altTxt, imageUrl, totalPrice, color, quantity});
+  constructor (id, productName, altTxt, imageUrl, price, totalPrice, color, quantity){
+    Object.assign(this,  {id, productName, altTxt, imageUrl, price, totalPrice, color, quantity});
   }
   displayProduct(elId) {
     document

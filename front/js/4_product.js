@@ -182,7 +182,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
                                           product.name, 
                                           product.altTxt, 
                                           product.imageUrl, 
-                                          //product.price,
+                                          product.price,
                                           totalPrice, 
                                           color,  
                                           quantity);

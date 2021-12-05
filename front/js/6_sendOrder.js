@@ -50,8 +50,6 @@ function validFormInput(e, fct, elementId) {
     if (value != "" && fct(value) == true) {
         validity = true;
         document.getElementById(elementId).innerHTML = "";
-        
-        console.log("ok")
     } else {
         validity = false;
         document.getElementById(elementId).innerHTML = "Saisie invalide";
@@ -77,18 +75,13 @@ function validFormInput(e, fct, elementId) {
 function addProductIdToOrder(order){
     for (items in cart) {
       let productId = cart[items].id;
-      console.log(typeof productId);
       order.push(productId);
     }  
   }
 
 /**
  * Envoie l'ID des produits du panier et l'objet "contact" à l'API 
- */  
-function sendOrder() {
-    //e.preventDefault();
-   /**
-    * Expects request to contain:
+ *  * Expects request to contain:
     * contact: {
     *   firstName: string,
     *   lastName: string,
@@ -97,7 +90,9 @@ function sendOrder() {
     *   email: string
     * }
     * products: [string] <-- array of product _id
-    */ 
+ */  
+function sendOrder(e) {
+    e.preventDefault(); 
  /************************************************************* */
     let contact= new Contact(form.firstName.value,
       document.getElementById("lastName").value,
