@@ -64,19 +64,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
             return value1 * value2;
             }
 
-        /****************************************************** */    
-        /*****Add function if color is undefined*************** */    
-        /****************************************************** */   
-        
-        function isColorUndefined(){
-            if (color == " ") {
-                return true;
-                //annule envoi au panier 
-                //affiche message alerte
-            }
-        }
-        /******************************************************** */
-        /******************************************************** */
+       
 
         /**
          * Récupère la valeur associée à la clé définie en paramètre sur localStorage s'il existe.

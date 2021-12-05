@@ -10,6 +10,7 @@
 let cart;
 getCart();
 cart.sort(compare); //classe les produits du panier par nom
+console.log(cart);
 
 let totalQty = 0;
 let totalPrice = 0;
@@ -27,9 +28,9 @@ for (items in cart) {
   selection.displayProduct("cart__items");
 
   //Incrémentation de la quantité et du prix totale de produit
-  totalQty += cart[items].quantity;
-  totalPrice += cart[items].totalPrice; 
-
+  totalQty += selection.quantity;
+  totalPrice += selection.totalPrice; 
+  }
   //Affichage de la quantité et prix total du panier
   displayTotal("totalQuantity", totalQty);
   displayTotal("totalPrice", totalPrice);
@@ -52,8 +53,7 @@ function compare( a, b ) {
     return 1;
   }
   return 0;
-}}
-
+}
 
 /**
  * Récupère la valeur associée à la clé définie en paramètre sur localStorage s'il existe.
