@@ -64,8 +64,6 @@ fetch(`http://localhost:3000/api/products/${id}`)
             return value1 * value2;
             }
 
-       
-
         /**
          * Récupère la valeur associée à la clé définie en paramètre sur localStorage s'il existe.
          * @param {string} key clé recherchée sur le localStorage
@@ -105,21 +103,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
                     return  items;  
                 }
             }
-        } 
-
-        /**
-         * Modifie les valeurs "quantity" et "totalPrice" de l'objet existant dans "cart".
-         * @param {number} quantityCart 
-         * @param {number} quantitySelection 
-         * @param {number} totalPriceCart  
-         * @param {number} totalPriceSelection 
-         */
-        /*function modifyExistingProduct(quantityCart, quantitySelection,totalPriceCart, totalPriceSelection, items, objToChangeQty, objToChangePrice, objToChange){
-        
-                addValues(quantityCart,quantitySelection, objToChangeQty);
-                addValues(totalPriceCart,totalPriceSelection, objToChangePrice );
-                cart.splice(items, 1,objToChange);
-            }*/
+        }   
         
         /**
          * Modifie l'objet déjà présent dans le panier avec l'objet sélectionné
@@ -208,7 +192,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
 
         colorSelection.addEventListener('change', selectColor); 
         
-        
+    
         //Ecouter la saisie de la quantité
         let quantityInput = document.getElementById('quantity');
         let quantity = quantityInput.value;
@@ -220,13 +204,6 @@ fetch(`http://localhost:3000/api/products/${id}`)
         let buttonAdd = document.getElementById('addToCart');
 
         buttonAdd.addEventListener("click", addToCart);
-
-        
-
-            
-        
-
-
 
     })
     .catch(function(err) {
