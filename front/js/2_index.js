@@ -2,7 +2,7 @@
  * Gestion de l'affichage du produit sélectionné sur product.html
  */
 
-fetch("http://localhost:3000/api/products")
+fetch("http://localhost:3000/api/products/")
 .then(function(data) {
       if (data.ok) {
       return data.json();
@@ -13,5 +13,9 @@ fetch("http://localhost:3000/api/products")
       product.displayProduct("#items");
 }})
 .catch(function(err) {
+  document
+      .getElementById('items')
+      .innerHTML += `<div class="ErrorAPI">Désolés, les produits demandés sont actuellement introuvables !
+    </div>`;
   console.log("impossible d'afficher les données");
 });

@@ -125,7 +125,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
 
         /**
          * Affiche une fenètre pop up permettant d'accéder au panier ou à la page d'accueil
-         * @param {*} quantity nombre d'articles à ajouter au panier
+         * @param {number} quantity nombre d'articles à ajouter au panier
          */ 
         function confirmationPopup(quantity){
             if (window.confirm(`${quantity} articles ajouté au panier, OK pour voir le panier Annuler pour retourner à la page d'accueil`)){
@@ -139,13 +139,18 @@ fetch(`http://localhost:3000/api/products/${id}`)
          * ajout du produit sélectionné au panier
          */
         function addToCart() {
-
+            quantity = parseFloat(quantity);
+            //Si couleur non définie, affichage d'une alerte et annulation de l'ajout du produit au panier
             if (color == ""){
                 alert("Veuillez sélectionné une couleur");
                 return;
             }
+            //si quantité inférieure à 1 ou supérieure à 100, affichage d'une alerte et annulation de l'ajout du produit au panier
+            if (quantity < 1 || quantity > 100){
+                alert("Veuillez saisir une quantité entre 1 et 100");
+                return
+            }
             
-            quantity = parseFloat(quantity);
             //Calcul du prix total de la sélection
             let totalPrice = calculateTotalPrice(quantity, product.price);
         
@@ -207,5 +212,9 @@ fetch(`http://localhost:3000/api/products/${id}`)
 
     })
     .catch(function(err) {
+       /* document
+            .getElementsByClassName('item__img')
+            .innerHTML += `<div class="ErrorAPI">Désolés, les produits demandés sont actuellement introuvables !
+                            </div>`;*/
          console.log("impossible d'afficher les données");
      })

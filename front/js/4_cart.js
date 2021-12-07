@@ -40,22 +40,6 @@ for (items in cart) {
 /*****************************************************/
 
 /**
- * compare les objets du tableau et les range par ordre alphabétique
- * @param {*} a 
- * @param {*} b 
- * @returns -1 0 ou 1 
- */
-function compare( a, b ) {
-  if ( a.productName < b.productName ){
-    return -1;
-  }
-  if ( a.productName > b.productName ){
-    return 1;
-  }
-  return 0;
-}
-
-/**
  * Récupère la valeur associée à la clé définie en paramètre sur localStorage s'il existe.
  * @param {string} key clé recherchée sur le localStorage
  * @param {string} arrayName variable où sera stockée le résultat retournée
@@ -65,6 +49,22 @@ function compare( a, b ) {
   cart = JSON.parse(localStorage.getItem("selection"));
   return cart;
   }
+
+/**
+ * compare les objets du tableau et les range par ordre alphabétique
+ * @param {*} a 
+ * @param {*} b 
+ * @returns -1 0 ou 1 
+ */
+ function compare( a, b ) {
+  if ( a.productName < b.productName ){
+    return -1;
+  }
+  if ( a.productName > b.productName ){
+    return 1;
+  }
+  return 0;
+}  
 
  /**
  * Modifie l'objet déjà présent dans le panier avec l'objet sélectionné
