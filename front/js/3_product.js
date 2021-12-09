@@ -142,7 +142,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
             quantity = parseFloat(quantity);
             //Si couleur non définie, affichage d'une alerte et annulation de l'ajout du produit au panier
             if (color == ""){
-                alert("Veuillez sélectionné une couleur");
+                alert("Veuillez sélectionner une couleur");
                 return;
             }
             //si quantité inférieure à 1 ou supérieure à 100, affichage d'une alerte et annulation de l'ajout du produit au panier
@@ -212,9 +212,8 @@ fetch(`http://localhost:3000/api/products/${id}`)
 
     })
     .catch(function(err) {
-       /* document
-            .getElementsByClassName('item__img')
-            .innerHTML += `<div class="ErrorAPI">Désolés, les produits demandés sont actuellement introuvables !
-                            </div>`;*/
-         console.log("impossible d'afficher les données");
+        document
+            .querySelector(".item__img")
+            .innerHTML += `Désolés, ce produit est actuellement indisponible.`; 
+         console.log("impossible d'afficher les données " + err);
      })

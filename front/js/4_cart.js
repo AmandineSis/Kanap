@@ -130,6 +130,12 @@ function getNewQty(){
     quantity = this.value;
     let el = inputBtn.closest('.cart__item'); //sélectionne l'élément ".cart__item" le plus proche du bouton cliqué
     id = el.dataset.id;
+    //si quantité inférieure à 1 ou supérieure à 100, affichage d'une alerte et annulation de l'ajout du produit au panier
+    if (quantity < 1 || quantity > 100){
+      alert("Veuillez saisir une quantité entre 1 et 100");
+      location.reload();
+      return ;
+    }
     changeQty();
   }
 })

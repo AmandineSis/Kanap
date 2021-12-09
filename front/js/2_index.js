@@ -17,5 +17,5 @@ fetch("http://localhost:3000/api/products/")
       .getElementById('items')
       .innerHTML += `<div class="ErrorAPI">Désolés, les produits demandés sont actuellement introuvables !
     </div>`;
-  console.log("impossible d'afficher les données");
+  console.log("impossible d'afficher les données " + err);
 });

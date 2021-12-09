@@ -139,7 +139,7 @@ function sendOrder(e) {
 /*****************************************************/
 //écoute la saisie du prénom et affiche message d'erreur si saisie incorrecte
 form.firstName.addEventListener('input', function(e){
-  validFormInput(e, lettersOnlyValid, "firstNameErrorMsg") 
+  validFormInput(e, lettersOnlyValid, "firstNameErrorMsg")
 });
 //écoute la saisie du nom et affiche message d'erreur si saisie incorrecte
 
