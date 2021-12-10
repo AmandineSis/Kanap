@@ -155,7 +155,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
             let totalPrice = calculateTotalPrice(quantity, product.price);
         
             //Création de l'objet "selection" à ajouter au localStorage
-            let selection = new Selection(product._id, 
+            const selection = new Selection(product._id, 
                                           product.name, 
                                           product.altTxt, 
                                           product.imageUrl, 
@@ -192,21 +192,21 @@ fetch(`http://localhost:3000/api/products/${id}`)
         /********************************************************/
 
         // Ecouter le changement de la sélection de couleur
-        let colorSelection = document.getElementById('colors');
+        const colorSelection = document.getElementById('colors');
         let color = colorSelection.value;
 
         colorSelection.addEventListener('change', selectColor); 
         
     
         //Ecouter la saisie de la quantité
-        let quantityInput = document.getElementById('quantity');
+        const quantityInput = document.getElementById('quantity');
         let quantity = quantityInput.value;
 
         quantityInput.addEventListener('input', getQuantity);
         
 
         //Ecouter le clic du bouton "ajouter au panier"
-        let buttonAdd = document.getElementById('addToCart');
+        const buttonAdd = document.getElementById('addToCart');
 
         buttonAdd.addEventListener("click", addToCart);
 

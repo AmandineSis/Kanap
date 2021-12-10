@@ -16,7 +16,7 @@ let totalQty = 0;
 let totalPrice = 0;
 
 for (items in cart) {
-  let selection = new Selection(cart[items].id, 
+  const selection = new Selection(cart[items].id, 
                                 cart[items].productName, 
                                 cart[items].altTxt, 
                                 cart[items].imageUrl, 
@@ -123,7 +123,7 @@ function RemoveFromStorage() {
 /*****************************************************/
 
 // Pour chaque produit, écouter le changement de quantité s'il y en a un
-let qtyInput = document.querySelectorAll(".itemQuantity");
+const qtyInput = document.querySelectorAll(".itemQuantity");
 
 qtyInput.forEach(inputBtn => {inputBtn.addEventListener("change", getNewQty);
 function getNewQty(){
@@ -141,7 +141,7 @@ function getNewQty(){
 })
 
 // Pour chaque produit, écouter le clic sur le bouton supprimer
-let deleteBtn = document.querySelectorAll(".deleteItem");
+const deleteBtn = document.querySelectorAll(".deleteItem");
 
 deleteBtn.forEach(deleteBtn =>{
   deleteBtn.addEventListener("click", deleteProduct);

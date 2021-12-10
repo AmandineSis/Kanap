@@ -7,9 +7,9 @@
 /*****************************************************/
 const form = document.querySelector(".cart__order__form");
 
-let regexLetters = /^(([a-zA-ZÀ-ÿ]+[\s\-]{1}[a-zA-ZÀ-ÿ]+)|([a-zA-ZÀ-ÿ]+))$/
-let regexAddress = /^(([a-zA-ZÀ-ÿ0-9]+[\s\-]{1}[a-zA-ZÀ-ÿ0-9]+)){1,10}$/
-let regexEmail = /^[a-z0-9]+([_|\.|-]{1}[a-z0-9]+)*@[a-z0-9]+([_|\.|-]­{1}[a-z0-9]+)*[\.]{1}[a-z]{2,6}$/ ;
+const regexLetters = /^(([a-zA-ZÀ-ÿ]+[\s\-]{1}[a-zA-ZÀ-ÿ]+)|([a-zA-ZÀ-ÿ]+))$/
+const regexAddress = /^(([a-zA-ZÀ-ÿ0-9]+[\s\-]{1}[a-zA-ZÀ-ÿ0-9]+)){1,10}$/
+const regexEmail = /^[a-z0-9]+([_|\.|-]{1}[a-z0-9]+)*@[a-z0-9]+([_|\.|-]­{1}[a-z0-9]+)*[\.]{1}[a-z]{2,6}$/ ;
 /******************************************************************************** */
 function lettersOnlyValid(value) {
     return regexLetters.test(value);
@@ -79,7 +79,7 @@ function emailValid(value) {
   function sendOrder(e) {
       e.preventDefault(); 
    /************************************************************* */
-      let contact= new Contact(firstName.value,
+      const contact= new Contact(firstName.value,
         lastName.value,
         address.value,
         city.value,   

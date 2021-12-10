@@ -77,9 +77,11 @@ class Selection{
                         </article>`;   
   }
 }  
-
-//Afichage du prix et de la quantité totale dans cart.html
-
+/**
+ * Afichage du prix et de la quantité totale dans cart.html
+ * @param {*} id id de l'élément du DOM à modifier
+ * @param {*} el nom de la variable à insérer au DOm
+ */
 function displayTotal(id, el){
   document
     .getElementById(id)
