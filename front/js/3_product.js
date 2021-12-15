@@ -150,7 +150,6 @@ fetch(`http://localhost:3000/api/products/${id}`)
                 alert("Veuillez saisir une quantité entre 1 et 100");
                 return
             }
-            
             //Calcul du prix total de la sélection
             let totalPrice = calculateTotalPrice(quantity, product.price);
         
@@ -172,7 +171,6 @@ fetch(`http://localhost:3000/api/products/${id}`)
                 let items = getObjIndex(selection);
                
                 if (productExists) { //on change la valeur de qté et du prix total
-
                     cart[items].quantity += selection.quantity;
                     cart[items].totalPrice += selection.totalPrice;
                     modifyObjInCart(items, cart[items]);

@@ -10,7 +10,7 @@
 let cart;
 getCart();
 cart.sort(compare); //classe les produits du panier par nom
-console.log(cart);
+
 
 let totalQty = 0;
 let totalPrice = 0;
